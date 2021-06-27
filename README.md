@@ -1,4 +1,4 @@
-# hungry-matt.github.io
+# [hungry-matt.github.io](http://hungry-matt.github.io)
 
 # Install
 

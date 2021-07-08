@@ -1,4 +1,0 @@
-# Core
-
-source: `{{ page.path }}`
-

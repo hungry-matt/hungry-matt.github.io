@@ -56,7 +56,7 @@ public class EagerSingleton {
 - `static` 키워드가 붙은 클래스 변수는 인스턴스화와 상관없이 사용이 가능하다.
 - 하지만 `private` 접근제어자로 직접 접근이 불가능한 상태이다.
 - 생성자에도 `private` 키워드를 명시하여 외부에서 `new` 키워드로 인스턴스화 하지 못하게 제한하였다.
-- 결국에는 `getInstance()` 메서드를 통해 클래스 로딩 시 생성된 인스턴스를 반환 받을 수 있다.
+- 결국에는 `getInstance()` 정적 메서드를 통해 클래스 로딩 시 생성된 인스턴스를 반환 받을 수 있다.
 
 ### 클래스 로딩 확인해보기
 
@@ -98,6 +98,38 @@ loaded!!!
 - 출력 내용을 보면 Test 클래스를 인스턴스화 하여 로드된 것과 main 메서드에서 인스턴스화를 하지 않은 EagerSingleton 클래스가 로드된 것을 확인할 수 있다.
 
 - 위 내용에서 살펴본 것 처럼 `getInstance()` 메서드를 호출 하지 않고도 `static` 키워드를 통해 클래스는 항상 로드되고 정적 변수에 인스턴스가 생성 되는 단점에 대해 알아보았다.
+
+## Static Block Initialization
+
+- Eager Initialization과 유사 하지만 `static block`안에서 인스턴스를 생성하고 예외처리를 할 수 있다는 점이 있다.
+
+```java
+public class StaticBlockSingleton {
+
+    private static StaticBlockSingleton instance;
+
+    private StaticBlockSingleton() {
+
+    }
+
+    static {
+        try {
+            instance = new StaticBlockSingleton();
+        } catch (Exception e) {
+            throw new RuntimeException("Exception occured in creating singleton instance.");
+        }
+    }
+
+    public static StaticBlockSingleton getInstance() {
+        return instance;
+    }
+}
+
+```
+
+- static block은 클래스가 메모리에 로드될 때 처음 한번만 실행한다.
+- Eager Initialization과 다르게 static block에서 인스턴스 생성 시 로직을 추가하거나 초기 변수 설정을 할 수 있다.
+- 인스턴스가 사용되지 않아도 메모리에 로드되는 점은 다르지 않다.
 
 # 2. Enum Singleton
 

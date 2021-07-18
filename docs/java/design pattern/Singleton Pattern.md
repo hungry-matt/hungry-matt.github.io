@@ -131,6 +131,39 @@ public class StaticBlockSingleton {
 - Eager Initialization과 다르게 static block에서 인스턴스 생성 시 로직을 추가하거나 초기 변수 설정을 할 수 있다.
 - 인스턴스가 사용되지 않아도 메모리에 로드되는 점은 다르지 않다.
 
+## Lazy Initialization
+
+- Lazy Initialization은 Eager Initialization의 단점이 보완된 싱글톤이다.
+
+- 클래스 인스턴스가 사용되는 시점에 인스턴스가 생성되는 방식이다.
+
+```java
+public class LazySingleton {
+
+    private static LazySingleton instance;
+
+    private LazySingleton() {
+
+    }
+
+    public static LazySingleton getInstance() {
+        if (instance == null) {
+            instance = new LazySingleton();
+        }
+
+        return instance;
+    }
+}
+```
+
+- `getInstance()` 정적 메서드를 보면 내부에 if 문을 작성하였고 instance가 null인 경우에만 인스턴스를 생성하기 때문에 메모리에 부담이 적어졌다.
+
+- 하지만 단일 스레드 환경에서는 잘 작동하지만 다중 스레드 환경일 경우 thread-safe 하지 않은 문제를 가지고 있다.
+
+- instance가 아직 초기화 되지 않은 null 상태라고 가정하자.
+
+- 여러 스레드가 getInstance() 메서드를 동시에 호출하면 if 문 내부에서는 instance가 null이기 때문에 각각의 스레드는 새로운 클래스 인스턴스를 생성하게 되어 싱글톤 패턴이 파괴되는 문제가 발생하게 된다.
+
 # 2. Enum Singleton
 
 # Reference

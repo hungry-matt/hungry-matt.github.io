@@ -5,6 +5,13 @@ parent: Basic
 grand_parent: Java
 ---
 
+Table of contents
+
+- TOC
+{:toc}
+
+---
+
 # Static Block
 
 - `static block`은 클래스가 메모리에 로드될 때 한 번만 실행된다.

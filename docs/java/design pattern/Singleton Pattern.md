@@ -164,6 +164,35 @@ public class LazySingleton {
 
 - 여러 스레드가 getInstance() 메서드를 동시에 호출하면 if 문 내부에서는 instance가 null이기 때문에 각각의 스레드는 새로운 클래스 인스턴스를 생성하게 되어 싱글톤 패턴이 파괴되는 문제가 발생하게 된다.
 
+## Thread-Safe Singleton
+
+- Lazy Initialization가 가지고 있는 다중 스레드 문제를 해결한 싱글톤이다.
+
+```java
+public class ThreadSafeSingleton {
+
+    private static ThreadSafeSingleton instance;
+
+    private ThreadSafeSingleton() {
+
+    }
+
+    public static synchronized ThreadSafeSingleton getInstance() {
+        if (instance == null) {
+            instance = new ThreadSafeSingleton();
+        }
+
+        return instance;
+    }
+}
+```
+
+- `synchronized` 키워드를 이용하여 접근을 한 번에 하나의 스레드만 접근 하도록 하였다.
+
+- 하지만 다중 스레드 환경에서 `getInstance()` 정적 메서드를 호출할 때 마다 동기화 비용이 발생한다.
+
+- 싱글톤을 사용하는 목적은 하나의 인스턴스를 만드는 것이지 성능을 저하시키려는 것이 아니다.
+
 # 2. Enum Singleton
 
 # Reference

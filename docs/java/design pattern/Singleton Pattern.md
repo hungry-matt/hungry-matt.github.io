@@ -193,6 +193,37 @@ public class ThreadSafeSingleton {
 
 - 싱글톤을 사용하는 목적은 하나의 인스턴스를 만드는 것이지 성능을 저하시키려는 것이 아니다.
 
+## Bill Pugh Solution
+
+- BillPughSingleton은 지금까지 봐왔던 싱글톤과 다르게 정적 내부 클래스를 가진다.
+
+- 클래스 변수는 정적 내부 클래스에서 인스턴스화하며 `getInstance()` 메서드에 의해 호출시 생성이 된다.
+
+```java
+public class BillPughSingleton {
+
+    private BillPughSingleton() {
+
+    }
+
+    private static class SingletonHelper {
+        private static final BillPughSingleton INSTANCE = new BillPughSingleton();
+    }
+
+    public static BillPughSingleton getInstance() {
+        return SingletonHelper.INSTANCE;
+    }
+}
+```
+
+- `getInstance()` 정적 메서드 호출시 BillPughSingleton 클래스가 로드된다.
+
+- 메소드 내부의 SingletonHelper.INSTANCE도 static 이므로 SingletonHepler 클래스도 로드되며 인스턴스를 생성한다.
+
+- Lazy Loading이 가능하며 호출되기 전에는 클래스를 로드하지 않기 때문에 메모리의 부담이 적다.
+
+- 클래스가 로드될때 인스턴스를 생성하기 때문에 동기화가 필요하지 않으며 다중 스레드 환경에서 thread-safe 하다.
+
 # 2. Enum Singleton
 
 # Reference

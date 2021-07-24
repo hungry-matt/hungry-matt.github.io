@@ -218,11 +218,48 @@ public class BillPughSingleton {
 
 - `getInstance()` 정적 메서드 호출시 BillPughSingleton 클래스가 로드된다.
 
-- 메소드 내부의 SingletonHelper.INSTANCE도 static 이므로 SingletonHepler 클래스도 로드되며 인스턴스를 생성한다.
+- 메소드 내부의 SingletonHelper.INSTANCE도 static 이므로 SingletonHepler 클래스가 로드되며 인스턴스를 생성한다.
 
 - Lazy Loading이 가능하며 호출되기 전에는 클래스를 로드하지 않기 때문에 메모리의 부담이 적다.
 
-- 클래스가 로드될때 인스턴스를 생성하기 때문에 동기화가 필요하지 않으며 다중 스레드 환경에서 thread-safe 하다.
+- 클래스가 로드될때 인스턴스를 생성하기 때문에 동기화가 필요하지 않아 다중 스레드 환경에서 thread-safe 하다.
+
+## Using Reflection to Destroy Singleton Patterns
+
+- Bill Pugh Solution을 마지막으로 클래스 기반 싱클톤의 단점을 보완하는 과정들을 살펴봤지만 여전히 해결되지 않은 문제가 남아있다.
+
+- 그것은 Relection에 의해 하나 이상의 인스턴스가 생성될 수 있다는 것이다.
+
+```java
+public static void main(String[] args) {
+    BillPughSingleton instance1 =  BillPughSingleton.getInstance();
+    BillPughSingleton instance2 = null;
+
+    Constructor[] constructors = instance1.getClass().getDeclaredConstructors();
+
+    try {
+        for (Constructor constructor : constructors) {
+            constructor.setAccessible(true);
+            instance2 = (BillPughSingleton) constructor.newInstance();
+            break;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    System.out.println(instance1.hashCode()); //460141958
+    System.out.println(instance2.hashCode()); //1163157884
+}
+```
+- Reflection은 클래스의 생성자를 검사하고 런타임중 객체를 인스턴스화할 수 있다.
+
+- `getDeclaredConstructors()` 메소드에 의해 인스턴스화된 클래스의 모든 생정자를 가져온다.
+
+- `setAccessible(true)` 메서드는 모든 private 생성자, 메서드에 접근할 수 있게 해준다.
+
+- 접근이 허용되면 `newInstance()` 메서드에 의해 인스턴스를 초기화할 수 있다.
+
+- 출력 결과를 통해 싱글톤 패턴이 파괴된 것을 확인할 수 있다.
 
 # 2. Enum Singleton
 

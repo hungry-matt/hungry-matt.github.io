@@ -263,6 +263,113 @@ public static void main(String[] args) {
 
 # 2. Enum Singleton
 
+- Enum Singleton은 Reflection을 통해 패턴이 파괴되는걸 막기 위해 사용한다.
+
+- Java에서는 모든 enum값이 한 번만 인스턴스화 되도록 보장하고 있기 때문에 싱글톤 패턴을 구현하는데 적합하다.
+
+- 다중 스레드 환경에서도 thread-safe 하도록 보장받고 있다. (그렇지만 사용자가 구현한 메서드는 보장받지 못한다.)
+
+- 직렬화/역직렬화에 대한 별도의 처리가 필요하지 않다.
+
+```java
+public enum EnumSingleton {
+    INSTANCE;
+    public void someMethod() {
+
+    }
+}
+```
+
+## Serialization and Singleton
+
+- 때때로 파일시스템을 통해 상태를 저장하거나 검색할 수 있도록 클래스를 직렬화해야 할 경우가 있다.
+
+- 다음은 Serialization을 구현한 Singleton이다.
+
+```java
+public class SerializationSingleton implements Serializable {
+
+    private SerializationSingleton() {
+
+    }
+
+    public static SerializationSingleton getInstance() {
+        return SerializationSingletonHelper.INSTANCE;
+    }
+
+    public static class SerializationSingletonHelper {
+        private static final SerializationSingleton INSTANCE = new SerializationSingleton();
+    }
+}
+```
+
+- 직렬화된 싱글톤 클래스는 역직렬화시 새로운 인스턴스가 생성되는 문제가 있다.
+
+- 다음 예제의 main 메서드에 직렬화, 역직렬화를 구현하였다.
+
+```java
+public static void main(String[] args) {
+    SerializationSingleton instance1 = SerializationSingleton.getInstance();
+
+    try(ObjectOutput output = new ObjectOutputStream(new FileOutputStream("filename.txt"));) {
+        output.writeObject(instance1);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    SerializationSingleton instance2 = null;
+
+    try(ObjectInput input = new ObjectInputStream(new FileInputStream("filename.txt"))) {
+        instance2 = (SerializationSingleton) input.readObject();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    System.out.println(instance1.hashCode()); // 929338653
+    System.out.println(instance2.hashCode()); // 824909230
+}
+```
+- 결과를 보면 두 인스턴스를 서로 다른 hashCode를 가진걸 확인할 수 있다.
+
+- Serializable 인터페이스를 구현한 클래스는 역직렬화할 때 readObject()를 호출하면서 새로운 인스턴스를 만든다.
+
+- 새로운 인스턴스가 생성되지 않기 위해서는 다음과 같이 `readResolve()` 메서드를 구현하면 된다.
+
+```java
+protected Object readResolve() {
+    return getInstance();
+}
+```
+
+- 다음은 위 상황을 Enum 싱글톤 패턴으로 구현하였다.
+
+```java
+public static void main(String[] args) {
+    EnumSingleton instance1 = EnumSingleton.INSTANCE;
+
+    try(ObjectOutput out = new ObjectOutputStream(new FileOutputStream("filename.txt"));) {
+        out.writeObject(instance1);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    EnumSingleton instance2 = null;
+
+    try(ObjectInput input = new ObjectInputStream(new FileInputStream("filename.txt"))) {
+        instance2 = (EnumSingleton) input.readObject();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    System.out.println(instance1.hashCode()); // 1735600054
+    System.out.println(instance2.hashCode()); // 1735600054
+}
+```
+
+- 클래스 기반 싱글톤과 다르게 역직렬화에 대한 별도의 처리를 해주지 않아도 같은 hashCode가 출력되었다.
+
+- 지금까지 여러 상황을 고려하지 않고도 기본적인 Enum 클래스로 간단히 싱글턴 패턴을 구현할 수 있는걸 확인할 수 있었다.
+
 # Reference
 - [싱글턴 패턴](https://ko.wikipedia.org/wiki/%EC%8B%B1%EA%B8%80%ED%84%B4_%ED%8C%A8%ED%84%B4)
 - [Singletons in Java](https://www.baeldung.com/java-singleton)

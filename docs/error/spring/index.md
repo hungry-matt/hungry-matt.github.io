@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Spring
+title: Error/Spring
 has_children: true
 parent: Error
 ---

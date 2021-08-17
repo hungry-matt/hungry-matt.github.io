@@ -100,3 +100,6 @@ void convert() {
 - 애플리케이션이 클라이언트가 기대하는 인터페이스와 호환되지 않는 경우
 
 - 원본 코드를 수정하지 않고 애플리케이션 코드를 재사용하려는 경우
+
+# Reference
+- [The Adapter Pattern in Java](https://www.baeldung.com/java-adapter-pattern)

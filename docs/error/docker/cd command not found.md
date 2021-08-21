@@ -1,8 +1,8 @@
 ---
 layout: default
 title: cd command not found
-parent: docker
-grand_parent: error
+parent: Docker
+grand_parent: Error
 ---
 
 

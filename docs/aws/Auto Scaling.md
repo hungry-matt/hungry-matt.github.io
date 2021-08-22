@@ -1,6 +1,6 @@
 ---
 layout: default
-title: AUto Scaling
+title: Auto Scaling
 parent: AWS
 ---
 

@@ -81,7 +81,37 @@ public class LottoService {
 
 로또 번호 생성에 필요한 검증 로직들은 전부 LottoTicket에서 구현되어 이후 문제가 발생되어도 최소화할 수 있게 되었다.
 
-## 
+### 컬렉션의 불변
+
+일급 컬렉션은 컬렉션의 불변을 보장 한다.
+
+final 키워드 사용은 재할당만 금지될 뿐 컬렉션 내부의 값은 변경이 가능하다.
+
+소프웨어의 규모가 커질수록 불변 객체의 필요성은 더욱 높아진다.
+
+각각의 객체들의 값이 유알하게 보장된다면 사이드 이펙트가 최소화되기 때문이다.
+
+```java
+public class Orders {
+    private final List<Order> orders;
+
+    public Orders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public long getAmountSum() {
+        return orders.stream()
+                .mapToLong(Order::getAmout)
+                .sum();
+    }
+}
+```
+
+위와 같이 컬렉션의 값을 변경할 수 있는 메서드가 없는 컬렉션을 불변 컬렉션이라 한다.
+
+Orders 클래스는 생성자와 getAmoutSum() 메서드를 통해서 새로 만들거나 값을 반환할 수 밖에 없다.
+
+이 처럼 컬렉션의 값을 변경하거나 추가하지 않는것을 일급 컬렉션이라 한다.
 
 # Reference
 - https://jojoldu.tistory.com/412

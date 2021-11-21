@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Communications link failure
-parent: Spring
+parent: Spring-Error
 grand_parent: Error
 ---
 

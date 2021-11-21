@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Timeout waiting for connection from pool
-parent: Spring 
+parent: Spring-Error
 grand_parent: Error
 ---
 

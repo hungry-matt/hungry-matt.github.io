@@ -1,8 +1,8 @@
 ---
 layout: default
 title: CodeDeploy 삽질
-parent: /docs/error/aws
-grand_parent: /docs/error
+parent: aws
+grand_parent: error
 ---
 
 # 문제

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: CodeDeploy 삽질
-parent: Aws-Error
+parent: AWS
 grand_parent: Error
 ---
 

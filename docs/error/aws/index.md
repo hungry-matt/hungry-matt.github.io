@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Aws-Error
+title: AWS
 has_children: true
 parent: Error
 ---

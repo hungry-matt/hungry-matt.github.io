@@ -7,7 +7,7 @@ parent: Spring
 # Spring Transactional
 
 `Transaction`은 데이터베이스의 상태를 변경하는 작업이나 한번에 수행되어야 하는 연산들을 의미한다.
-한 트랜잭션에서 수행되는 작업은 하나의 단위 처리한다.
+한 트랜잭션에서 수행되는 작업은 하나의 단위로 처리한다.
 
 Spring에서 제공하는 Transactional의 기능에 대해 알아본다.
 
@@ -43,7 +43,7 @@ select current_setting('transaction_isolation'); -- defalut : READ COMMITTED
 
 - A라는 데이터를 B라는 데이터로 변경이 완료될 때까지 접근을 제한한다.
 
-### 4. REPETABLE-READ
+### 4. REPEATABLE_READ
 
 - 트랜잭션 작업이 완료될 때까지 SELECT 문장이 사용하는 모든 데이터에 shared lock이 걸리므로 다른 트랜잭션은 해당 데이터의 수정이 불가능하다.
 

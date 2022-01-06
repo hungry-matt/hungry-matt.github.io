@@ -80,3 +80,22 @@ codedeploy-agent 상태를 확인 했지만 문제가 없었고 로그를 확인
 - https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/set-time.html#configure-amazon-time-service-ubuntu
 - https://docs.aws.amazon.com/ko_kr/codedeploy/latest/userguide/troubleshooting-ec2-instances.html#troubleshooting-instance-time-failures
 - https://sarc.io/index.php/aws/1274
+
+# IAM 권한을 설정하지 않았을 경우
+
+인스턴스를 새로 만들 때 CodeDeploy IAM 권한을 부여해야 하는데 하지 않고 CodeDeploy 실행 시 다음과 같은 오류를 만날 수 있다.
+
+물론 Deploy Fail 로그가 제대로 나오지 않기 때문에 codedeploy-agent에서 로그를 확인해야한다.
+
+```
+2022-01-05 07:41:40 ERROR [codedeploy-agent(1201)]: InstanceAgent::Plugins::CodeDeployPlugin::CommandPoller: Missing credentials - please check if this instance was started with an IAM instance profile
+```
+
+위와 같은 오류가 발생하였다면 해당 인스턴스에 IAM Role을 다시 부여하고 codedeploy-agent를 다시 시작한다.
+
+```
+$ sudo service codedeploy-agent restart
+```
+
+## Reference
+- https://sarc.io/index.php/aws/1327-tip-codedeploy-missing-credentials

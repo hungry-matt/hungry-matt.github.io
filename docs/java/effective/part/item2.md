@@ -1,8 +1,8 @@
 ---
 layout: default
-title: item2
-parent: Effective
-grand_parent: Java
+title: item2-생성자에 매개변수가 많다면 빌더를 고려하라
+parent: Part1
+grand_parent: Effective
 ---
 
 

@@ -1,8 +1,8 @@
 ---
 layout: default
-title: item3
-parent: Effective
-grand_parent: Java
+title: item3-private 생성자나 열거 타입으로 싱글턴임을 보증하라
+parent: Part1
+grand_parent: Effective
 ---
 
 

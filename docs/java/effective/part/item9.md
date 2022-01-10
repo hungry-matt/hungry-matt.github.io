@@ -1,6 +1,6 @@
 ---
 layout: default
-title: item9-try-finally 보다는 try-with-resource를 사용하라.
+title: item 9. try-finally 보다는 try-with-resource를 사용하라.
 parent: Part1
 grand_parent: Effective
 ---

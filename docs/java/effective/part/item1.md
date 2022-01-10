@@ -1,6 +1,6 @@
 ---
 layout: default
-title: item1-생성자 대신 정적 팩터리 메서드를 고려하라.
+title: item 1. 생성자 대신 정적 팩터리 메서드를 고려하라.
 parent: Part1
 grand_parent: Effective
 ---

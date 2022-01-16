@@ -1,6 +1,6 @@
 ---
 layout: default
-title: item4-인스턴스화를 막으려거든 private 생성자를 사용하라
+title: item 4. 인스턴스화를 막으려거든 private 생성자를 사용하라
 parent: Part1
 grand_parent: Effective
 ---

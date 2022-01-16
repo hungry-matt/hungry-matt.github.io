@@ -1,6 +1,6 @@
 ---
 layout: default
-title: item2-생성자에 매개변수가 많다면 빌더를 고려하라
+title: item 2. 생성자에 매개변수가 많다면 빌더를 고려하라
 parent: Part1
 grand_parent: Effective
 ---

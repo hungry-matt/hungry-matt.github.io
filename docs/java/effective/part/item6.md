@@ -1,6 +1,6 @@
 ---
 layout: default
-title: item6-불필요한 객체 생성을 피하라
+title: item 6. 불필요한 객체 생성을 피하라
 parent: Part1
 grand_parent: Effective
 ---

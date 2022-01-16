@@ -1,6 +1,6 @@
 ---
 layout: default
-title: item5-자원을 직접 명시하지 않고 의존 객체 주입을 사용하라
+title: item 5. 자원을 직접 명시하지 않고 의존 객체 주입을 사용하라
 parent: Part1
 grand_parent: Effective
 ---
